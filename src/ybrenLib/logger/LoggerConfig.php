@@ -26,5 +26,6 @@ class LoggerConfig{
         }else{
             self::$config = [];
         }
+        return self::$config;
     }
 }
