@@ -38,7 +38,10 @@ class RollFileAppender extends Appender {
         }
         $fileName = $this->getFileName($this->fileName);
         $message .= "\n";
-        file_put_contents($fileName , $message , FILE_APPEND | LOCK_EX);
+        try{
+            file_put_contents($fileName , $message , FILE_APPEND | LOCK_EX);
+        }catch (\Exception $e){
+        }
     }
 
     private function getFileFormat($filePattern){
