@@ -64,7 +64,9 @@ class JsonLogConverter implements ClassicConverter {
             ($iLoggingEvent->getConfig()) , strtolower($logType) ,
                 date("Ym"));
         }else{
-            $indexName = sprintf($indexName , strtolower($logType));
+            if(strpos($indexName , "%s") != false){
+                $indexName = sprintf($indexName , strtolower($logType));
+            }
         }
         $flumeLogBody->setVar1(MDC::get("var1"));
         $flumeLogBody->setVar2(MDC::get("var2"));
