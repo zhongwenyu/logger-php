@@ -7,6 +7,10 @@ class FlumeLogBody extends ColumnBean {
 
     protected $logType;
 
+    protected $appName;
+
+    protected $level = "200";
+
     protected $requestId;
 
     protected $ip;
@@ -57,6 +61,38 @@ class FlumeLogBody extends ColumnBean {
     public function setLogType($logType)
     {
         $this->logType = $logType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAppName()
+    {
+        return $this->appName;
+    }
+
+    /**
+     * @param mixed $appName
+     */
+    public function setAppName($appName)
+    {
+        $this->appName = $appName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLevel()
+    {
+        return $this->level;
+    }
+
+    /**
+     * @param string $level
+     */
+    public function setLevel($level)
+    {
+        $this->level = $level;
     }
 
     /**
