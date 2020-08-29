@@ -64,7 +64,7 @@ class JsonLogConverter implements ClassicConverter {
             ($iLoggingEvent->getConfig()) , strtolower($logType) ,
                 date("Ym"));
         }else{
-            if(strpos($indexName , "%s") != false){
+            if(strpos($indexName , "%s") !== false){
                 $indexName = sprintf($indexName , strtolower($logType));
             }
         }
