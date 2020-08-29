@@ -40,7 +40,7 @@ class RollFileAppender extends Appender {
         $message .= "\n";
         try{
             file_put_contents($fileName , $message , FILE_APPEND | LOCK_EX);
-        }catch (\Exception $e){
+        }catch (\Throwable $e){
         }
     }
 
