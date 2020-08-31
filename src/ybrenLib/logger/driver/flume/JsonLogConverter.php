@@ -6,6 +6,7 @@ use ybrenLib\logger\core\ClassicConverter;
 use ybrenLib\logger\driver\flume\bean\FlumeLogBody;
 use ybrenLib\logger\driver\flume\bean\FlumeLogSet;
 use ybrenLib\logger\driver\flume\bean\LogType;
+use ybrenLib\logger\LoggerConfig;
 use ybrenLib\logger\utils\ConfigUtil;
 use ybrenLib\logger\utils\MDC;
 use ybrenLib\logger\utils\StringUtil;
@@ -18,10 +19,15 @@ class JsonLogConverter implements ClassicConverter {
     private $bulkIndexName = "index";
     private $logContentFormat = "%s %s [%s]: %s";
     private $sqlContentFormat = "%s : %s";
+    private $maxContentLength = 10000;
 
     private static $localIp = "";
     
     public function convert(ILoggingEvent $iLoggingEvent) {
+        $loggerConfig = LoggerConfig::getConfig();
+        $maxContentLength = isset($loggerConfig['maxContentLength']) ? $loggerConfig['maxContentLength'] :
+            $this->maxContentLength;
+
         $flumeLogBody = new FlumeLogBody();
         $content = "";
         $logType = MDC::get(FlumeLogConstants::$LogType);
@@ -77,7 +83,13 @@ class JsonLogConverter implements ClassicConverter {
             default:
                 $content = $message;
         }
+
         $content = urlencode($content);
+        if(strlen($content) > $maxContentLength){
+            // 超过最大字符限制
+            $content = "";
+        }
+
         $flumeLogBody->setContent($content);
         $flumeLogBody->setIp(MDC::get(FlumeLogConstants::$ClientIp));
         $flumeLogBody->setLogType($logType);
