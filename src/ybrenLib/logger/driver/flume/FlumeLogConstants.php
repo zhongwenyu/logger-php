@@ -27,4 +27,6 @@ class FlumeLogConstants {
     public static $AppName = "appName";
     // 链路追踪id
     public static $TraceId = "traceId";
+    // level
+    public static $Level = "level";
 }

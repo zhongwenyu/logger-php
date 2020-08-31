@@ -56,13 +56,23 @@ class JsonLogConverter implements ClassicConverter {
         if($traceId != null){
             $flumeLogBody->setTraceId($traceId);
         }
+        $appName = MDC::get(FlumeLogConstants::$AppName);
+        if($appName != null){
+            $flumeLogBody->setAppName($appName);
+        }
+        $level = MDC::get(FlumeLogConstants::$Level);
+        if($level != null){
+            $flumeLogBody->setLevel($level);
+        }
         $indexName = MDC::get(FlumeLogConstants::$IndexName);
         if($indexName == null){
             $indexName = sprintf(FlumeLogConstants::$IndexNameFormat , ConfigUtil::getAppName
             ($iLoggingEvent->getConfig()) , strtolower($logType) ,
                 date("Ym"));
         }else{
-            $indexName = sprintf($indexName , strtolower($logType));
+            if(strpos($indexName , "%s") !== false){
+                $indexName = sprintf($indexName , strtolower($logType));
+            }
         }
         $flumeLogBody->setVar1(MDC::get("var1"));
         $flumeLogBody->setVar2(MDC::get("var2"));
