@@ -97,7 +97,7 @@ class JsonLogConverter implements ClassicConverter {
         $content = urlencode($content);
         if(strlen($content) > $maxContentLength){
             // 超过最大字符限制
-            $content = "";
+            $content = substr($content , 0 , $maxContentLength);
         }
 
         $flumeLogBody->setContent($content);
