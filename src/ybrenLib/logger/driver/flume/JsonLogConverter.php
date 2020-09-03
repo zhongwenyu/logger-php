@@ -106,10 +106,13 @@ class JsonLogConverter implements ClassicConverter {
         $flumeLogBody->setRequestUri($requestUri);
         $flumeLogBody->setRequestId($requestId);
 
-        if(defined("LOCAL_HOST")){
-            $instanceId = LOCAL_HOST;
-        }else{
-            $instanceId = $this->getLocalIp();
+        $instanceId = MDC::get(FlumeLogConstants::$InstanceId);
+        if(empty($instanceId)){
+            if(defined("LOCAL_HOST")){
+                $instanceId = LOCAL_HOST;
+            }else{
+                $instanceId = $this->getLocalIp();
+            }
         }
         $flumeLogBody->setInstanceId($instanceId);
 
