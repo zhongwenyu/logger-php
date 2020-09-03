@@ -77,7 +77,6 @@ class JsonLogConverter implements ClassicConverter {
         $flumeLogBody->setVar1(MDC::get("var1"));
         $flumeLogBody->setVar2(MDC::get("var2"));
         $flumeLogBody->setVar3(MDC::get("var3"));
-        $flumeLogBody->setInstanceId($this->getLocalIp());
         $message = $iLoggingEvent->getFormattedMessage();
         switch($logType){
             case LogType::$Log:
