@@ -66,9 +66,7 @@ class JsonLogConverter implements ClassicConverter {
         }
         $indexName = MDC::get(FlumeLogConstants::$IndexName);
         if($indexName == null){
-            $indexName = sprintf(FlumeLogConstants::$IndexNameFormat , ConfigUtil::getAppName
-            ($iLoggingEvent->getConfig()) , strtolower($logType) ,
-                date("Ym"));
+            $indexName = sprintf(FlumeLogConstants::$IndexNameFormat , ConfigUtil::getAppName($iLoggingEvent->getConfig()) , date("Ymd"));
         }else{
             if(strpos($indexName , "%s") !== false){
                 $indexName = sprintf($indexName , strtolower($logType));

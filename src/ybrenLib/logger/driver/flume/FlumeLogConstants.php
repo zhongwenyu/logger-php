@@ -16,7 +16,7 @@ class FlumeLogConstants {
     // 索引
     public static $IndexName = "indexName";
     // 索引名格式化
-    public static $IndexNameFormat = "flumelog-%s-%s-%s";
+    public static $IndexNameFormat = "flumelog-%s-%s";
     // 默认appName
     public static $DefaultAppName = "provider-yuncut";
     // 默认logType
